@@ -17,3 +17,7 @@ Route::get('/booked', function () {
 Route::get('/mark', function () {
     return view('pages.mark');
 });
+
+Route::get('/markup', function () {
+    return view('pages.mark');
+});
