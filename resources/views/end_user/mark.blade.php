@@ -1,4 +1,6 @@
-<div class="right" id="content">
+@extends('template.authenticated-interface')
+@section('content')
+<div class="content" id="content">
     <div class="container-mark">
         <main class="content-mark">
             <div class="room-grid">
@@ -86,3 +88,4 @@
         roomItem.remove(); // Xóa tấm ảnh khỏi danh sách
     }
 </script>
+@endsection

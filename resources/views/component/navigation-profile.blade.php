@@ -5,8 +5,8 @@
             <button class="upload-btn">Upload</button>
         </div>
         <div class="buttons">
-            <button onclick="loadPage('/profile', this)">Profile</button>
-            <button onclick="loadPage('/booked', this)">Booked</button>
-            <button onclick="loadPage('/mark', this)">Mark</button>
+            <button onclick="window.location.href='/profile/'">Profile</button>
+            <button onclick="window.location.href='/profile/marked_room'">Mark</button>
+            <button onclick="window.location.href='/profile/booked_room'">History</button>
         </div>
 </div>

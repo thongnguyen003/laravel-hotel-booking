@@ -70,6 +70,67 @@
             color: white;
             font-weight: bold;
         }
+        /* Style của profile  */
+        .btn {
+            background-color: #e8e8e8;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .btn.active {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .profile-info {
+            padding: 20px;
+            width: 70%;
+            background-color: #fff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        .gender_profile {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        /* Style của edit-profile */
+        .birthday-input {
+        display: flex;
+        gap: 10px;
+        }
+
+        .birthday-input input {
+        width: 80px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        }
+
+        .birthday-input input:focus {
+        outline: 2px solid #007bff;
+        }
         /* Style của mark */
         .container-mark {
             display: flex;
@@ -211,11 +272,12 @@
         .hidden {
             display: none;
         }
+        
     </style>
 </head>
 <body>
     <!-- Navigation profile -->
-    @include_once('component.navigation-profile')
+    @include('component.navigation-profile')
     @yield('content')
 </body>
 </html>
