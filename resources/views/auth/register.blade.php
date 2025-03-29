@@ -70,6 +70,12 @@
             margin-top: 60px;
             margin-bottom: 60px;
         }
+
+        .button-register {
+            height: 50px;
+            font-size: 20px;
+            justify-content: center;
+        }
     </style>
     <script>
         function togglePasswordVisibility(id) {
@@ -176,10 +182,15 @@
                     </div>
                     @error('password_confirmation') <p class="text-red-500 text-sm  error-message">{{ $message }}</p> @enderror
                 </div>
-                <button class="w-full bg-blue-500 text-white py-2 rounded-lg font-bold hover:bg-blue-600 mb-5" type="submit"> Register </button>
+                <div class="flex justify-center">
+                    <button class="w-full max-w-md bg-blue-500 text-white py-2 rounded-lg font-bold hover:bg-blue-600 mb-5 button-register" type="submit">
+                        Register
+                    </button>
+                </div>
             </form>
 
             <div class="mt-4 text-center">
+                <p class="text-gray-600">Do you already have an account?</p>
                 <a href="#" class="text-blue-500">Login</a>
             </div>
         </div>
