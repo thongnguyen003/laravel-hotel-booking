@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('dashboard');
 });
@@ -21,3 +21,10 @@ Route::get('/mark', function () {
 Route::get('/markup', function () {
     return view('pages.mark');
 });
+
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+// Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
