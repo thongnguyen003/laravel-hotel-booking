@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    protected $table = 'users';
+    protected $append = ['data_parts'];
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -19,6 +21,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'day_of_birth',
+        'phone',
         'email',
         'password',
     ];
@@ -44,5 +48,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function getDataPartsAttribute(){
+        return $this->split_date($this->day_of_birth);
+    }
+    public function split_date($date) {
+        try {
+            $dateObj = new \DateTime($date);
+            return [
+                'year'  => $dateObj->format('Y'),
+                'month' => $dateObj->format('m'),
+                'day'   => $dateObj->format('d'),
+            ];
+        } catch (Exception $e) {
+            return null; 
+        }
     }
 }
