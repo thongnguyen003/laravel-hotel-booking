@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->enum('role', ['admin', 'staff', 'user']);
             $table->string('name');
+            $table->string('avatar')->nullable();
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->dateTime('day_of_birth');
+            $table->date('day_of_birth')->default('2005-01-01');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->timestamps();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
         });
     }
 

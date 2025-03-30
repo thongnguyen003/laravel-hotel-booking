@@ -44,21 +44,22 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-
     public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|min:6',
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('register');
+            $request->session()->put('user', Auth::user());
+            $request->session()->save();
+            return redirect()->intended('dashboard');
         }
 
-        throw ValidationException::withMessages([
-            'email' => 'Incorrect email or password.',
-        ]);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('email'));
     }
 
     public function logout()

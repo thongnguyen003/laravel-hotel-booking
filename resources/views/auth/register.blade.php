@@ -94,7 +94,7 @@
     </script>
 </head>
 
-<body class="bg-gray-100 flex items-center justify-center h-screen m-14">
+<body class="bg-gray-100 flex items-center justify-center h-screen mt-14 mb-14">
     <div class="bg-white shadow-lg rounded-lg flex w-[1200px] h-auto custom-margin">
         <div class="relative w-1/2 hidden md:block">
             <img alt="Scenic view of a hotel surrounded by lush greenery" class="w-full h-full object-cover rounded-l-lg" src="https://storage.googleapis.com/a1aa/image/WEj28cISC9vCBwNsK7_WDrxadGkyPxg_oTmukaDvJoI.jpg" width="600" height="400" />
