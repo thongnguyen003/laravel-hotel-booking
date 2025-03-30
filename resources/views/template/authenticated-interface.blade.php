@@ -14,18 +14,75 @@
             display:none;
             margin-bottom:20px;
         }
-    
+        .breadcrumb-profile {
+            font-size: 14px;
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        .breadcrumb-profile li {
+            margin-right: 5px;
+        }
+        .breadcrumb-profile li a {
+            text-decoration: none;
+            color: blue;
+        }
+        .breadcrumb-profile li::after {
+            content: ">";
+            margin-left: 5px;
+        }
+        .breadcrumb-profile li:last-child::after {
+            content: "";
+        }
+        .breadcrumb-profile li:last-child a {
+            color: black;
+            pointer-events: none;
+        }
+        .btn-update-profile button,
+        .btn-cancel-update-profile button,
+        .btn-logout button,
+        .btn-edit-profile button{
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-group-edit{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin-top:10px;
+        }
+        .btn-cancel-update-profile button{
+            margin-right:20px;
+            background-color:rgb(255, 208, 0);
+        }
+        .btn-update-profile button{
+            background-color: #4caf50;
+        }
+        .btn-logout button{
+            background-color:rgb(255, 81, 0);
+            padding: 10px 25px;
+        }
+        .btn-edit-profile button{
+            margin-top:20px;
+            background-color:rgb(255, 208, 0);
+        }
         .container-navigation {
             width: 20%;
             background-color: #f4f4f4;
             padding: 20px;
-            margin-top: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
         .content {
             flex: 1;
-            padding: 20px;
+            padding: 20px; 
+        }
+        .box-navigation{
+            margin: 20px 0;
         }
         .profile-card {
             display: inline-block;

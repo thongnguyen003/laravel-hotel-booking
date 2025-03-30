@@ -28,7 +28,15 @@
 
             <label for="email">User Email:</label>
             <input type="email" id="email" placeholder="Email" value="{{ $user->email }}" readonly>
-            <button type="submit">update</button>
+            <div class="btn-group-edit">
+              <div class="btn-cancel-update-profile">
+                <button type="button" onclick="window.location.href='/profile/'">cancel</button>
+              </div>
+              <div class="btn-update-profile">
+                <button type="submit">update</button>
+              </div>
+            </div>
+            
         </form>
     </div>
 </div>
