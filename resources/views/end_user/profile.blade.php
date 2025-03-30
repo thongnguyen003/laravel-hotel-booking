@@ -5,6 +5,7 @@
         <li><a href="home.html">Home</a></li>
         <li><a href="#">Profile</a></li>
     </ul>
+
     <div class="profile-info">
         <form>
             <label for="name">User Name:</label>

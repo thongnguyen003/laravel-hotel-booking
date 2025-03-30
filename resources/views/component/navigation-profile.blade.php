@@ -15,6 +15,7 @@
         </form>
         <br>
         <div class="buttons box-navigation">
+
             <button onclick="window.location.href='/profile/'">Profile</button>
             <button onclick="window.location.href='/profile/marked_room'">Mark</button>
             <button onclick="window.location.href='/profile/booked_room'">History</button>
