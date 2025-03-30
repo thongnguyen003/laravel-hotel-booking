@@ -21,11 +21,12 @@ Route::prefix('profile')->group(function(){
     Route::get('/edit',[Fake_user::class,'edit_profile'])->name('edit_profile');
 
     // Cập nhật hồ sơ người dùng
-    Route::post('/',[Fake_user::class,'update_profile'])->name('update_profile');
+    Route::post('/update',[Fake_user::class,'update_profile'])->name('update_profile');
+    Route::post('/update_avatar',[Fake_user::class,'update_avatar_profile'])->name('update_avatar_profile');
 
     // Trang danh sách phòng đánh dấu
     Route::get('/marked_room',[Fake_user::class,'marked_room'])->name('mark');
-    
+
     // Trang danh sách phòng đã đặt
     Route::get('/booked_room',[Fake_user::class,'booked_room'])->name('history');
 });

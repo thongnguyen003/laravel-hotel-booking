@@ -2,7 +2,7 @@
 @section('content')
 <div class="content" id="content">
     <div class="profile-info">
-        <form action="" method="POST">
+        <form action="/profile/update" method="POST">
             @csrf
             @include('error')
             <label for="name">User Name:</label>
@@ -13,9 +13,9 @@
 
             <label for="gender">User Gender:</label>
             <select class="gender_profile" name="gender" id="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>Female</option>
+                <option value="other" {{ $user->gender === 'other' ? 'selected' : '' }}>Other</option>
             </select>
 
             <label for="birth">User Day Of Birth:</label>
