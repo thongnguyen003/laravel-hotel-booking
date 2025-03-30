@@ -21,7 +21,6 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required|string|min:6|confirmed',
             'day_of_birth' => 'required|date',
             'phone' => 'required',
             'gender' => 'required|in:male,female,other',
@@ -38,7 +37,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('login');
     }
 
     public function showLogin()
@@ -54,7 +53,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('dashboard');
+            return redirect()->route('register');
         }
 
         throw ValidationException::withMessages([

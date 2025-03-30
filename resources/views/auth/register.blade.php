@@ -98,7 +98,7 @@
     <div class="bg-white shadow-lg rounded-lg flex w-[1200px] h-auto custom-margin">
         <div class="relative w-1/2 hidden md:block">
             <img alt="Scenic view of a hotel surrounded by lush greenery" class="w-full h-full object-cover rounded-l-lg" src="https://storage.googleapis.com/a1aa/image/WEj28cISC9vCBwNsK7_WDrxadGkyPxg_oTmukaDvJoI.jpg" width="600" height="400" />
-            <div class=" inssetBG absolute inset-0 bg-white bg-opacity-70 flex flex-col items-center justify-center rounded-l-lg p-8" style="margin: 40px;">
+            <div class=" bg-opacity-70 inssetBG absolute inset-0 bg-white flex flex-col items-center justify-center rounded-l-lg p-8" style="margin: 40px;">
                 <h1 class="custom-title">
                     Quintessence
                 </h1>
@@ -191,7 +191,7 @@
 
             <div class="mt-4 text-center">
                 <p class="text-gray-600">Do you already have an account?</p>
-                <a href="#" class="text-blue-500">Login</a>
+                <a href="{{ route('login') }}" class="text-blue-500">Login</a>
             </div>
         </div>
     </div>
