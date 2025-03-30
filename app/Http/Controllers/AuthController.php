@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -65,6 +66,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
+        Session::forget('user');
         return redirect()->route('login');
     }
 }

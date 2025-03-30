@@ -6,6 +6,7 @@ use App\Http\Controllers\Fake_user;
 
 // Trang chủ trang web
 Route::get('/', [Fake_user::class, 'index']);
+
 // Trang đăng ký người dùng
 Route::get('/register', [Fake_user::class, 'register'])->name('register');
 
@@ -14,6 +15,7 @@ Route::get('/login', [Fake_user::class, 'login'])->name('log-in');
 
 // Nhóm các route có tiền tố là là profile và cần đăng nhập mới truy cập được
 Route::prefix('profile')->group(function () {
+  
     // Trang hồ sơ các nhân
     Route::get('/', [Fake_user::class, 'profile'])->name('profile');
 
@@ -31,26 +33,11 @@ Route::prefix('profile')->group(function () {
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
 
-Route::get('/profile', function () {
-    return view('pages.profile');
-});
-
-Route::get('/booked', function () {
-    return view('pages.booked');
-});
-
-Route::get('/mark', function () {
-    return view('pages.mark');
-});
-
-Route::get('/markup', function () {
-    return view('pages.mark');
-});
-
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-// Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+

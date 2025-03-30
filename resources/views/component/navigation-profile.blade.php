@@ -1,7 +1,7 @@
 <div class="container-navigation">
         <div class="profile-card">
             <img src="{{ $user->avatar 
-            ? asset('storage/app/public/avatars/' . $user->avatar) 
+            ? asset('storage/avatars/' . $user->avatar) 
             : 'https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/474053FoG/hinh-nguoi-that-de-thuong_043419682.jpg' }}" 
             alt="Profile Picture" 
             class="profile-pic">
@@ -14,10 +14,14 @@
                 <button type="submit">Upload</button>
         </form>
         <br>
-        <div class="buttons">
+        <div class="buttons box-navigation">
+
             <button onclick="window.location.href='/profile/'">Profile</button>
             <button onclick="window.location.href='/profile/marked_room'">Mark</button>
             <button onclick="window.location.href='/profile/booked_room'">History</button>
+        </div>
+        <div class="btn-logout">
+            <button onclick="window.location.href='/logout'">Log out</button>
         </div>
 </div>
 <script>
