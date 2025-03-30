@@ -30,7 +30,7 @@
             <input type="email" id="email" placeholder="Email" value="{{ $user->email }}" readonly>
             <div class="btn-group-edit">
               <div class="btn-cancel-update-profile">
-                <button onclick="window.location.href='/profile/'">cancel</button>
+                <button type="button" onclick="window.location.href='/profile/'">cancel</button>
               </div>
               <div class="btn-update-profile">
                 <button type="submit">update</button>
