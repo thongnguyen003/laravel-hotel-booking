@@ -10,10 +10,16 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
+        .avatar_profile{
+            display:none;
+            margin-bottom:20px;
+        }
+    
         .container-navigation {
             width: 20%;
             background-color: #f4f4f4;
             padding: 20px;
+            margin-top: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
