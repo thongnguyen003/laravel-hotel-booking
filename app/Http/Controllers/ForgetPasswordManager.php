@@ -19,10 +19,7 @@ class ForgetPasswordManager extends Controller
 
     public function ForgetPasswordPost(Request $request)
     {
-        // dd($request->all()); // Xem dữ liệu gửi lên
-        // $request->validate([
-        //     'email' => "required|email|exists:users,email",
-        // ]);
+
         $request->validate([
             'email' => "required|email",
         ]);
@@ -45,7 +42,7 @@ class ForgetPasswordManager extends Controller
 
     public function resetPassword($token)
     {
-        return view('userPage.new-password', compact('token'));
+        return view('userPage.new-password',  ['token' => $token]);
     }
 
     public function resetPasswordPost(Request $request)
@@ -53,7 +50,7 @@ class ForgetPasswordManager extends Controller
         $request->validate([
             "email" => "required|email|exists:users,email",
             "password" => "required|string|min:6|confirmed",
-            "password_confrimation" => "required"
+            "password_confirmation" => "required"
         ]);
 
         $updatePassword = DB::table('password_resets')

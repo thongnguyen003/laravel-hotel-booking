@@ -122,11 +122,13 @@
         </div>
         <form action="{{route('reset-passwordPost')}}" method="POST">
             @csrf
-            <input type="text" name="token" hidden="{{token}}">
-            <!-- <div>
-                <label for="code">Enter your code</label>
-                <input type="text" id="code" name="code" placeholder="code">
-            </div> -->
+            <input type="hidden" name="token" value="{{$token}}">
+            
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Enter your email">
+            </div>
+            
             <div>
                 <label for="new-password">New password</label>
                 <div class="input-icon">
@@ -141,10 +143,12 @@
                     <input type="password" id="confirm-password" name="password_confirmation" placeholder="Confirm your password">
                 </div>
             </div>
+            
             <button type="submit" class="btn-primary">Update your password</button>
         </form>
         <div class="divider">Or</div>
         <button class="btn-secondary">Create an account</button>
     </div>
 </body>
-</html>
+</html> 
+
