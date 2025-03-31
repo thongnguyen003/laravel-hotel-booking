@@ -2,7 +2,7 @@
 @section('content')
 <div class="content" id="content">
     <div class="profile-info">
-        <form action="" method="POST">
+        <form action="/profile/update" method="POST">
             @csrf
             @include('error')
             <label for="name">User Name:</label>
@@ -13,9 +13,9 @@
 
             <label for="gender">User Gender:</label>
             <select class="gender_profile" name="gender" id="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="male" {{ $user->gender === 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ $user->gender === 'female' ? 'selected' : '' }}>Female</option>
+                <option value="other" {{ $user->gender === 'other' ? 'selected' : '' }}>Other</option>
             </select>
 
             <label for="birth">User Day Of Birth:</label>
@@ -28,7 +28,15 @@
 
             <label for="email">User Email:</label>
             <input type="email" id="email" placeholder="Email" value="{{ $user->email }}" readonly>
-            <button type="submit">update</button>
+            <div class="btn-group-edit">
+              <div class="btn-cancel-update-profile">
+                <button type="button" onclick="window.location.href='/profile/'">cancel</button>
+              </div>
+              <div class="btn-update-profile">
+                <button type="submit">update</button>
+              </div>
+            </div>
+            
         </form>
     </div>
 </div>
