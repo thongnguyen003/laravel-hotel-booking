@@ -20,7 +20,7 @@ class FakeUserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->unique()->safeEmail('thuy.bo26@student.passerellesnumeriques.org'),
             'password' =>  Hash::make('password'),
             'role' => 'user',
             'phone' => '0905623455',

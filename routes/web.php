@@ -1,19 +1,28 @@
 <?php
 
-use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fake_user;
+use App\Http\Controllers\ForgetPasswordManager;
 
-// Trang chủ trang web
-Route::get('/',[k::class,'index']);
+// thử lại 
+Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
+->name('forgetPassword');
+Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
+->name('forgetPasswordPost');
+Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
+->name("reset-password");
+Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
+->name("reset-passwordPost");
+// // Trang chủ trang web
+// Route::get('/',[k::class,'index']);
 // quên mật khẩu
-Route::get('/forgotPw',[ForgotPasswordController::class,'forgotPassword'])->name('fpw');
-// gửi mail khi quên mật khẩu
-Route::get('/confirm-forgotPw',[ForgotPasswordController::class,'confirmPassword'])->name('confirm-fpw');
-// Trang đăng ký người dùng
-Route::get ('/register',[k::class,'register'])->name('register');
-// Trang đăng nhập người dùng
-Route::get('/login',[k::class,'login'])->name('log-in');
+// Route::get('/forgotPw',[ForgotPasswordControllers::class,'forgotPassword'])->name('fpw');
+// // gửi mail khi quên mật khẩu
+// Route::post('/forgotPw',[ForgotPasswordControllers::class,'forgotPasswordPost'])->name('fpwP');
+// // Trang đăng ký người dùng
+// Route::get ('/register',[k::class,'register'])->name('register');
+// // Trang đăng nhập người dùng
+// Route::get('/login',[k::class,'login'])->name('log-in');
 
 // Nhóm các route có tiền tố là là profile và cần đăng nhập mới truy cập được
 Route::prefix('profile')->group(function(){
