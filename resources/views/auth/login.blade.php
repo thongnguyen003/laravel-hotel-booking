@@ -114,7 +114,7 @@
                     <div class="h-6">
                         @error('password') <p class="text-red-500 text-sm error-message">{{ $message }}</p> @enderror
                     </div>
-                    <a href="#" class="text-blue-500 text-sm float-right mt-3">Forgot password?</a>
+                    <a href="{{route('forgetPasswordPost')}}" class="text-blue-500 text-sm float-right mt-3">Forgot password?</a>
                 </div>
                 <div class="flex justify-center">
                     <button class="bg-blue-500 text-white py-2 rounded-lg font-bold hover:bg-blue-600 mb-2 button_login" type="submit">

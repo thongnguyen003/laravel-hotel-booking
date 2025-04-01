@@ -1,11 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Fake_user;
+use App\Http\Controllers\ForgetPasswordManager;
+use App\Http\Controllers\AuthController;
+
+// thử lại 
+Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
+->name('forgetPassword');
+Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
+->name('forgetPasswordPost');
+Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
+->name("reset-password");
+Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
+->name("reset-passwordPost");
 
 // Trang chủ trang web
-Route::get('/', [Fake_user::class, 'index']);
+
+// Route::get('/', [Fake_user::class, 'index']);
 
 // Trang đăng ký người dùng
 Route::get('/register', [Fake_user::class, 'register'])->name('register');
