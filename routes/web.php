@@ -7,13 +7,13 @@ use App\Http\Controllers\AuthController;
 
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
-->name('forgetPassword');
+    ->name('forgetPassword');
 Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
-->name('forgetPasswordPost');
-Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
-->name("reset-password");
-Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
-->name("reset-passwordPost");
+    ->name('forgetPasswordPost');
+Route::get('/reset-password/{token}', [ForgetPasswordManager::class, 'resetPassword'])
+    ->name("reset-password");
+Route::post('/reset-password', [ForgetPasswordManager::class, 'resetPasswordPost'])
+    ->name("reset-passwordPost");
 
 // Trang chủ trang web
 // Route::get('/', [Fake_user::class, 'index']);
@@ -49,3 +49,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/about', function () {
+    return view('userPage.about');
+})->name('about');
