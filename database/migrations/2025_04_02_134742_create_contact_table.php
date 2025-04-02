@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('contact', function (Blueprint $table) {
             $table->id(); // Tạo khóa chính tự động tăng
-            $table->unsignedBigInteger('user_id'); // Cột user_id
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Cột user_id
             $table->text('content'); // Cột nội dung
             $table->timestamps(); // Tạo cột created_at và updated_at
 
