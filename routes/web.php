@@ -7,13 +7,13 @@ use App\Http\Controllers\AuthController;
 
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
-->name('forgetPassword');
+    ->name('forgetPassword');
 Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
-->name('forgetPasswordPost');
-Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
-->name("reset-password");
-Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
-->name("reset-passwordPost");
+    ->name('forgetPasswordPost');
+Route::get('/reset-password/{token}', [ForgetPasswordManager::class, 'resetPassword'])
+    ->name("reset-password");
+Route::post('/reset-password', [ForgetPasswordManager::class, 'resetPasswordPost'])
+    ->name("reset-passwordPost");
 
 // Trang chủ trang web
 
@@ -44,7 +44,9 @@ Route::prefix('profile')->group(function () {
     // Trang danh sách phòng đã đặt
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
-
+Route::get('/about', function () {
+    return view('userPage.about');
+})->name('about');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
