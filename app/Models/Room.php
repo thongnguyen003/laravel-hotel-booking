@@ -17,4 +17,8 @@ class Room extends Model
     protected function type () : BelongsTo{
         $this->belongsTo(Type::class,'type_id');
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
