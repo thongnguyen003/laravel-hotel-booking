@@ -125,3 +125,7 @@ CREATE TABLE IF NOT EXISTS contact (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+INSERT INTO payment_gateways (name, description) 
+VALUES 
+	('PayPal', 'Cổng thanh toán quốc tế phổ biến hỗ trợ nhiều loại tiền tệ.'),
+    ('VNPay', 'Cổng thanh toán điện tử phổ biến tại Việt Nam, hỗ trợ nhiều ngân hàng.');
