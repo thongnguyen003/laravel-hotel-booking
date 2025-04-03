@@ -5,6 +5,10 @@ use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\CheckoutController;
+// =======
+// use App\Http\Controllers\ForgetPasswordManager;
+// use App\Http\Controllers\AuthController;
 
 Route::resource('rooms', RoomController::class);
 Route::get('rooms/detail', [RoomController::class, 'show'])->name('rooms.detail');
@@ -18,6 +22,16 @@ Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPasswo
 ->name("reset-password");
 Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
 ->name("reset-passwordPost");
+// // thử lại 
+// Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
+// ->name('forgetPassword');
+// Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
+// ->name('forgetPasswordPost');
+// Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
+// ->name("reset-password");
+// Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
+// ->name("reset-passwordPost");
+// >>>>>>> 68686109c972c217912e20d1f5aaa54801bfe686
 
 // Trang chủ trang web
 
@@ -59,3 +73,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/process-payment', [CheckoutController::class, 'processPayment'])->name('process.payment');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/payment', [CheckoutController::class, 'processPayment']);
