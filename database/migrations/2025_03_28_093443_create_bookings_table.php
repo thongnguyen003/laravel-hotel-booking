@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
+            $table->string('invoice_id', 255)->nullable();
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->decimal('cost', 10, 2);
             $table->enum('status', ['pending', 'confirmed', 'canceled'])->default('pending');
