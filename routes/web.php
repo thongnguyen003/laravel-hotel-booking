@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoomController;
 
+Route::resource('rooms', RoomController::class);
+Route::get('rooms/detail', [RoomController::class, 'show'])->name('rooms.detail');
+Route::get('/rooms/detail/{id}', [RoomController::class, 'show']);
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
 ->name('forgetPassword');
