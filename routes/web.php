@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Fake_user;
+use App\Http\Controllers\CheckoutController;
 
 // Trang chủ trang web
 Route::get('/', [Fake_user::class, 'index']);
@@ -41,3 +42,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/process-payment', [CheckoutController::class, 'processPayment'])->name('process.payment');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/payment', [CheckoutController::class, 'processPayment']);
