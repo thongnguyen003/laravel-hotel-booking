@@ -3,20 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relation\BelongsTo;
-use Illuminate\Database\Eloquent\Relation\HasMany;
+// use Illuminate\Database\Eloquent\Relations\BelongsTo;
+// use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Room;
 use App\Models\Invoice;
 class Booking extends Model
 {
     protected $table = "bookings";
 
-    protected function room() : BelongsTo 
+    public function room() 
     {
-        $this->belongsTo(Room::class,'product_id');
+        return $this->belongsTo(Room::class,'room_id');
     }
-    protected function invoice () : BelongsTo
+    public function invoice () 
     {
-        $this->belongsTo(Invoice::class,'invoice_id');
+        return $this->belongsTo(Invoice::class,'invoice_id');
     }
  }
