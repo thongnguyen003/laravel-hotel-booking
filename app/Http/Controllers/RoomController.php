@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Slide; // Đảm bảo bạn đã tạo model Room
 use App\Models\Marking;
 use App\Models\Comment;
-
+use App\Models\Service;
 
 class RoomController extends Controller
 {
@@ -42,10 +42,10 @@ class RoomController extends Controller
     {
         // Lấy thông tin phòng theo ID
         $room = Room::findOrFail($id);
-    
+        $services = Service::all();
         // Lấy thông tin từ bảng reviews liên quan đến phòng này
         // Bao gồm avatar từ bảng users
-        $reviews = $room->reviews()->with('user:id,avatar')->get();
+        $reviews = $room->reviews()->with('user:id,avatar')->paginate(3); 
     
         // Lấy tất cả các phòng có cùng type_id
         $relatedRooms = Room::where('type_id', $room->type_id)
@@ -56,7 +56,7 @@ class RoomController extends Controller
         $slides = Slide::where('room_id', $id)->get();
     
         // Trả về dữ liệu cho view
-        return view('room.detail', compact('room', 'reviews', 'relatedRooms', 'slides'));
+        return view('room.detail', compact('room', 'reviews', 'relatedRooms', 'slides','services'));
     }
     
     public function addComment(Request $request, $id)

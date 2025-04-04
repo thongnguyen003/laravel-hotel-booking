@@ -92,12 +92,9 @@
             </div>
             <div class="bg-gray-100 p-4 rounded w-1/4">
                 <h3 class="font-bold mb-2">Tiện ích phòng</h3>
-                <ul class="list-disc list-inside">
-                    <li>Điều hòa</li>
-                    <li>Chỗ đậu xe</li>
-                    <li>Nhà hàng</li>
-                    <li>Wi-Fi tốc độ cao</li>
-                </ul>
+                @foreach($services as $service)
+                    <li>{{ $service->serv_name }}</li>
+                @endforeach
             </div>
         </div>
         <div class="mb-4">
@@ -122,38 +119,45 @@
             @if($reviews->isEmpty())
                 <p>No Reviews</p>
             @else
-                @foreach($reviews as $review)
-                    <div class="flex items-center mb-2">
-                        <img alt="User profile picture" class="w-10 h-10 rounded-full mr-2" src="{{ $review->user->avatar ?? 'default_avatar.png' }}" />
-                        <div>
-                            <p class="font-bold">{{ $review->user->name }}</p>
-                            <p>{{ $review->comment }}</p>
-                            <div class="flex items-center">
-                                @for ($i = 1; $i <= $review->rating; $i++)
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 15.27L16.18 19l-1.64-7.03L19 9.24l-7.19-.61L10 2 8.19 8.63 1 9.24l5.46 2.73L5.82 19z"/>
-                                    </svg>
-                                @endfor
-                                @for ($i = $review->rating + 1; $i <= 5; $i++)
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 15.27L16.18 19l-1.64-7.03L19 9.24l-7.19-.61L10 2 8.19 8.63 1 9.24l5.46 2.73L5.82 19z"/>
-                                    </svg>
-                                @endfor
-                            </div>
-                        </div>
+            @foreach($reviews as $review)
+            <div class="flex items-center mb-2">
+                <img alt="User profile picture" class="w-10 h-10 rounded-full mr-2" src="{{ $review->user->avatar ?? 'default_avatar.png' }}" />
+                <div>
+                    <p class="font-bold">{{ $review->user->name }}</p>
+                    <p>{{ $review->comment }}</p>
+                    <div class="flex items-center">
+                        @for ($i = 1; $i <= $review->rating; $i++)
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 15.27L16.18 19l-1.64-7.03L19 9.24l-7.19-.61L10 2 8.19 8.63 1 9.24l5.46 2.73L5.82 19z"/>
+                            </svg>
+                        @endfor
+                        @for ($i = $review->rating + 1; $i <= 5; $i++)
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 15.27L16.18 19l-1.64-7.03L19 9.24l-7.19-.61L10 2 8.19 8.63 1 9.24l5.46 2.73L5.82 19z"/>
+                            </svg>
+                        @endfor
                     </div>
-                @endforeach
+                </div>
+            </div>
+        @endforeach
+        
+        <!-- Phân trang -->
+        <div class="mt-4">
+            {{ $reviews->links() }} <!-- Hiển thị liên kết phân trang -->
+        </div>
             @endif
         </div>
         <div>
             <h3 class="font-bold mb-2">Related Hotels</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 @if($relatedRooms->isEmpty())
-                <p>No Related rooms</p>
+                    <p>No Related rooms</p>
                 @else
                     @foreach($relatedRooms as $related)
                         <div class="bg-white shadow-md rounded p-2">
-                            <img alt="Hotel image" class="w-full h-32 object-cover rounded mb-2" src="{{ $related->image }}"/>
+                            <a href="{{ route('rooms.detail', $related->id) }}">
+                                <img alt="Hotel image" class="w-full h-32 object-cover rounded mb-2" src="{{ $related->image }}"/>
+                            </a>
                             <p class="font-bold">{{ $related->name }}</p>
                             <p class="text-gray-600">{{ $related->price }}</p>
                         </div>
