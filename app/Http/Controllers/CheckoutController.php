@@ -2,44 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use App\Models\PaymentGateway;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
     public function index(Request $request)
     {
-        // Kiểm tra nếu người dùng đã đăng nhập
         $user = Auth::user();
         if (!$user) {
-            // Nếu không có người dùng, chuyển hướng đến trang đăng nhập
             return redirect()->route('login')->with('error', 'You must be logged in to proceed.');
         }
 
-        // Giả sử chuỗi ID phòng được truyền qua URL hoặc từ session
-        $roomIds = $request->input('room_ids'); // Ví dụ: '1,2,3'
+        $payment_gateways = PaymentGateway::all();
 
-        // Kiểm tra nếu có chuỗi ID phòng
+        // Định nghĩa chuỗi roomIds trực tiếp trong controller (ví dụ "1,2,3")
+        $roomIds = "1,2,3"; // Bạn có thể thay đổi chuỗi này theo nhu cầu
+
+        $rooms = collect();
+        $totalPrice = 0;
+
         if ($roomIds) {
-            // Chuyển chuỗi ID thành mảng
-            $roomIdsArray = explode(',', $roomIds);
-
-            // Lấy danh sách phòng theo các ID đã tách
-            $rooms = Room::whereIn('id', $roomIdsArray)->get();
-
-            // Tính tổng giá trị của các phòng
-            $totalPrice = $rooms->sum(function($room) {
-                return $room->price; // Hoặc tính giá sau chiết khấu nếu cần
-            });
-        } else {
-            // Nếu không có ID phòng, lấy các phòng có trạng thái 'available' (hoặc trạng thái khác nếu cần)
-            $rooms = Room::where('status', 'available')->take(2)->get();
+            // Sử dụng FIND_IN_SET để lấy các phòng có ID trong chuỗi roomIds
+            $rooms = Room::whereRaw("FIND_IN_SET(id, ?)", [$roomIds])->get();
+            // Tính tổng giá tiền của các phòng đã chọn
             $totalPrice = $rooms->sum('price');
-        }
+        } 
 
-        // Truyền dữ liệu vào view, bao gồm thông tin người dùng
-        return view('end_user.checkout', compact('rooms', 'totalPrice', 'user'));
+        // Gán mặc định ngày check-in và check-out
+        $checkinDate = '22/03/2025';
+        $checkoutDate = '25/03/2025';
+
+        // Tính số đêm
+        $nights = Carbon::createFromFormat('d/m/Y', $checkoutDate)
+            ->diffInDays(Carbon::createFromFormat('d/m/Y', $checkinDate));
+
+        return view('end_user.checkout', compact(
+            'rooms', 'totalPrice', 'user', 'payment_gateways',
+            'roomIds', 'checkinDate', 'checkoutDate', 'nights'
+        ));
     }
 
     public function processPayment(Request $request)
