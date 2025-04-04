@@ -1,23 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\ForgetPasswordManager;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
+use App\HTTP\Controllers\FakeProductController;
 
-// thử lại 
-Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
-->name('forgetPassword');
-Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
-->name('forgetPasswordPost');
-Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
-->name("reset-password");
-Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
-->name("reset-passwordPost");
+ Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
+ ->name('forgetPassword');
+ Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
+ ->name('forgetPasswordPost');
+ Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
+ ->name("reset-password");
+ Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
+ ->name("reset-passwordPost");
 
 // Trang chủ trang web
-
-// Route::get('/', [Fake_user::class, 'index']);
+Route::get('/', [Fake_user::class, 'index']);
 
 // Trang đăng ký người dùng
 Route::get('/register', [Fake_user::class, 'register'])->name('register');
@@ -44,6 +46,8 @@ Route::prefix('profile')->group(function () {
     // Trang danh sách phòng đã đặt
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
+Route::post('/search',[FakeProductController::class,'display_search_result_result']);
+Route::get('/dis',[FakeProductController::class,'dis']);
 Route::get('/about', function () {
     return view('userPage.about');
 })->name('about');
@@ -55,3 +59,10 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/booking', [BookingController::class, 'show'])->name('booking.show');
+
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/process-payment', [CheckoutController::class, 'processPayment'])->name('process.payment');
