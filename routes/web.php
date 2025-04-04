@@ -5,8 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
+
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
     ->name('forgetPassword');
 Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
@@ -46,6 +48,10 @@ Route::prefix('profile')->group(function () {
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
 
+Route::get('/about', function () {
+    return view('userPage.about');
+})->name('about');
+
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -54,9 +60,10 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/booking', [BookingController::class, 'show'])->name('booking.show');
+
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
+
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/process-payment', [CheckoutController::class, 'processPayment'])->name('process.payment');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('/checkout/payment', [CheckoutController::class, 'processPayment']);
