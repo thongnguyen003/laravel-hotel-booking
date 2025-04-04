@@ -53,7 +53,6 @@
                 <input type="hidden" id="maxInput" name="maximum">
                 <input type="hidden"  name="inception_day" value="{{$start_day}}">
                 <input type="hidden"  name="expiration_day" value="{{$end_day}}">
-                
                 <div class="relative flex-1">
                     <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions('type')">
                         <i class="fas fa-bars mr-2"></i>

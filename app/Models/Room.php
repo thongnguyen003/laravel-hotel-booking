@@ -33,4 +33,12 @@ class Room extends Model
     {
         return $this->discount ? ($this->price - $this->discount) : $this->price;
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function markings()
+    {
+        return $this->hasMany(Marking::class);
+    }
 }
