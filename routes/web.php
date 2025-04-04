@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComponentController ;
 
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
@@ -14,7 +15,10 @@ Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPasswo
 ->name("reset-password");
 Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
 ->name("reset-passwordPost");
-
+//header
+Route::get('/header',[ ComponentController ::class, 'getHeader'])->name('header');
+Route::get('/footer',[ ComponentController ::class, 'getFooter'])->name('footer');
+Route::get('/home',[ ComponentController ::class, 'getHomePage'])->name('home');
 // Trang chủ trang web
 // Route::get('/', [Fake_user::class, 'index']);
 // Trang đăng ký người dùng
