@@ -3,20 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\CheckoutController;
-// =======
-// use App\Http\Controllers\ForgetPasswordManager;
-// use App\Http\Controllers\AuthController;
 
-// // thử lại 
-// Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
-// ->name('forgetPassword');
-// Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
-// ->name('forgetPasswordPost');
-// Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
-// ->name("reset-password");
-// Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
-// ->name("reset-passwordPost");
-// >>>>>>> 68686109c972c217912e20d1f5aaa54801bfe686
+ use App\Http\Controllers\ForgetPasswordManager;
+ use App\Http\Controllers\AuthController;
+
+ // thử lại 
+ Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
+ ->name('forgetPassword');
+ Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
+ ->name('forgetPasswordPost');
+ Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
+ ->name("reset-password");
+ Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
+ ->name("reset-passwordPost");
+
 
 // Trang chủ trang web
 
@@ -47,9 +47,15 @@ Route::prefix('profile')->group(function () {
     // Trang danh sách phòng đã đặt
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
+//
+use App\HTTP\Controllers\FakeProductController;
+Route::post('/search',[FakeProductController::class,'display_search_result_result']);
+Route::get('/dis',[FakeProductController::class,'dis']);
+
 Route::get('/about', function () {
     return view('userPage.about');
 })->name('about');
+
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
