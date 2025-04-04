@@ -65,30 +65,29 @@ class FakeProductController extends Controller
             $rooms = $rooms->whereIn('capacity_id' ,  $room_capacity_condition);
         }
         if(!empty($minimum_amount)){
-            $rooms = $rooms->whereRaw("(price - price * COALESCE(discount, 0)) >= ?", [$minimum_amount]);
+            $rooms = $rooms->whereRaw("(price - COALESCE(discount, 0) )>= ?", [$minimum_amount]);//  price * COALESCE(discount, 0)
         }
         if(!empty($maximum_amount)){
-            $rooms = $rooms->whereRaw("(price - price * COALESCE(discount, 0)) >= ?", [$maximum_amount]);
+            $rooms = $rooms->whereRaw("(price - COALESCE(discount, 0) <= ?", [$maximum_amount]);
         }
         if(!empty($sort)){
-            $room->orderBy('price',$sort);
+            $rooms->orderBy('price',$sort);
         }
         return $rooms->get();
     }
     public function display_search_result_result(Request $request){
         $rooms = $this->search_filter_result( $request);
+        $minPrice = Room::min('price');
+        $maxPrice = Room::max('price');
         $types = Type::all();
         $capacities = Capacity::all();
-        return view('end_user.search_resourch',compact('rooms','types','capacities'));
+        $start_day = $request->inception_day;
+        $end_day = $request->expiration_day;
+        $type_id = $request->type_id ?? '' ;
+        $capacity_id = $request->capacity_id ?? '';
+        return view('end_user.search_resourch',compact('rooms','types','capacities','minPrice','maxPrice','start_day','end_day','type_id','capacity_id'));
     }
     public function dis(){
         return view('end_user.fake_new_search');
-=======
-
-class FakeProductController extends Controller
-{
-    public function search_result(Request $request){
-        
-
     }
 }
