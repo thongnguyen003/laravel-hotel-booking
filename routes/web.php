@@ -41,7 +41,10 @@ Route::prefix('profile')->group(function () {
     // Trang danh sách phòng đã đặt
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
-
+//
+use App\HTTP\Controllers\FakeProductController;
+Route::post('/search',[FakeProductController::class,'display_search_result_result']);
+Route::get('/dis',[FakeProductController::class,'dis']);
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
