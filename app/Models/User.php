@@ -49,4 +49,9 @@ class User extends Authenticatable
             return null; 
         }
     }
+    // Trong model Review.php
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
