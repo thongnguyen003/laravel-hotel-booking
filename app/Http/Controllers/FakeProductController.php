@@ -68,7 +68,7 @@ class FakeProductController extends Controller
             $rooms = $rooms->whereRaw("(price - COALESCE(discount, 0) )>= ?", [$minimum_amount]);//  price * COALESCE(discount, 0)
         }
         if(!empty($maximum_amount)){
-            $rooms = $rooms->whereRaw("(price - COALESCE(discount, 0) <= ?", [$maximum_amount]);
+            $rooms = $rooms->whereRaw("(price - COALESCE(discount, 0) )<= ?", [$maximum_amount]);
         }
         if(!empty($sort)){
             $rooms->orderBy('price',$sort);
