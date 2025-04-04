@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Room; // Đảm bảo bạn đã tạo model Room
 use Illuminate\Http\Request;
+use App\Models\Slide; // Đảm bảo bạn đã tạo model Room
+use App\Models\Marking;
+
 
 class RoomController extends Controller
 {
@@ -52,7 +55,7 @@ class RoomController extends Controller
         $slides = Slide::where('room_id', $id)->get();
     
         // Trả về dữ liệu cho view
-        return view('room.show', compact('room', 'reviews', 'relatedRooms', 'slides'));
+        return view('room.detail', compact('room', 'reviews', 'relatedRooms', 'slides'));
     }
     
 
@@ -77,7 +80,32 @@ class RoomController extends Controller
 
         return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
     }
-
+    public function mark(Request $request, $id)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+    
+        // Kiểm tra xem bản ghi đã tồn tại trong bảng marking hay chưa
+        $existingMark = Marking::where('room_id', $id)
+                                ->where('user_id', $request->user_id)
+                                ->first();
+    
+        if ($existingMark) {
+            // Nếu đã tồn tại, xóa bản ghi
+            $existingMark->delete();
+            $message = 'Room unmarked successfully.';
+        } else {
+            // Nếu chưa tồn tại, thêm mới bản ghi
+            Marking::create([
+                'room_id' => $id,
+                'user_id' => $request->user_id,
+            ]);
+            $message = 'Room marked successfully.';
+        }
+    
+        return redirect()->route('rooms.detail', $id)->with('success', $message);
+    }
     // Xóa sản phẩm
     public function destroy($id)
     {

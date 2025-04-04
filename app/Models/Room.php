@@ -21,4 +21,8 @@ class Room extends Model
     {
         return $this->hasMany(Review::class);
     }
+    public function markings()
+    {
+        return $this->hasMany(Marking::class);
+    }
 }

@@ -12,7 +12,9 @@ use App\Http\Controllers\CheckoutController;
 
 Route::resource('rooms', RoomController::class);
 // Route::get('rooms/detail', [RoomController::class, 'show'])->name('rooms.detail');
-Route::get('/rooms/detail/{id}', [RoomController::class, 'show']);
+Route::get('/rooms/{id}', [RoomController::class, 'show'])->name('rooms.detail');
+Route::post('/rooms/{id}/mark', [RoomController::class, 'mark'])->name('rooms.mark');
+
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
 ->name('forgetPassword');
