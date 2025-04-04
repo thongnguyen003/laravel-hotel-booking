@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\BelongsTo;
-use Illuminate\Database\Eloquent\Relation\HasMany;
+// use Illuminate\Database\Eloquent\Relations\BelongsTo;
+// use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Room;
 class Type extends Model
 {
     protected $table = "types";
 
-    protected function room() : HasMany
+    public function room() : HasMany
     {
-        $this->hasMany(Room::class,'room_id');
+        return $this->hasMany(Room::class,'room_id');
     }
 }

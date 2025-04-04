@@ -4,14 +4,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <script>
-        function toggleSortOptions() {
-            const sortOptions = document.getElementById('sortOptions');
-            sortOptions.classList.toggle('hidden');
+        function toggleSortOptions(action) {
+            if(action == 'type'){
+                const options = document.getElementById('typeOptions');
+                options.classList.toggle('hidden');
+            }else if (action == 'sort'){
+                const options = document.getElementById('sortOptions');
+                options.classList.toggle('hidden');
+            }else if (action == 'capacity'){
+                const options = document.getElementById('capacityOptions');
+                options.classList.toggle('hidden');
+            }
         }
     </script>
 </head>
 <body class="bg-gray-100">
     <!-- Header -->
+     <p>{{$rooms}}</p>
     <header class="bg-teal-500 p-4 flex justify-between items-center">
         <div class="flex items-center">
             <img alt="Hotel Logo" class="h-12 w-12" height="50" src="https://storage.googleapis.com/a1aa/image/nCjm3F3FksKW0bcC9qzx2OnZtxDp3h30Cs-AcByAfyQ.jpg" width="50"/>
@@ -32,17 +41,57 @@
     <main class="p-4">
         <div class="flex justify-between items-center mb-4">
             <div class="flex space-x-4 w-3/4 bg-white p-4 rounded shadow">
-                <select class="p-2 border rounded flex-1">
+                <!-- <select class="p-2 border rounded flex-1">
                     <option>Type Room</option>
-                </select>
-                <select class="p-2 border rounded flex-1">
-                    <option>Capacity</option>
-                </select>
-                <select class="p-2 border rounded flex-1">
-                    <option>Price</option>
-                </select>
+                </select> -->
                 <div class="relative flex-1">
-                    <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions()">
+                    <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions('type')">
+                        <i class="fas fa-bars mr-2"></i>
+                        <span>Room type</span>
+                    </button>
+                    <div id="typeOptions" class="absolute left-0 right-0 bg-white border rounded mt-2 hidden z-10">
+                        <ul>
+                            <li class="p-2 border-b">Option 1</li>
+                            <li class="p-2 border-b">Option 2</li>
+                            <li class="p-2">Option 3</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <select class="p-2 border rounded flex-1">
+                    <option>Capacity</option>
+                </select> -->
+                <div class="relative flex-1">
+                    <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions('capacity')">
+                        <i class="fas fa-bars mr-2"></i>
+                        <span>Room Capacity</span>
+                    </button>
+                    <div id="capacityOptions" class="absolute left-0 right-0 bg-white border rounded mt-2 hidden z-10">
+                        <ul>
+                            <li class="p-2 border-b">Option 1</li>
+                            <li class="p-2 border-b">Option 2</li>
+                            <li class="p-2">Option 3</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="relative flex-1">
+                    <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions('capacity')">
+                        <i class="fas fa-bars mr-2"></i>
+                        <span>Room Capacity</span>
+                    </button>
+                    <div id="capacityOptions" class="absolute left-0 right-0 bg-white border rounded mt-2 hidden z-10">
+                        <ul>
+                            <li class="p-2 border-b">Option 1</li>
+                            <li class="p-2 border-b">Option 2</li>
+                            <li class="p-2">Option 3</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <select class="p-2 border rounded flex-1">
+                    <option>Price</option>
+                </select> -->
+                <div class="relative flex-1">
+                    <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions('sort')">
+
                         <i class="fas fa-bars mr-2"></i>
                         <span>Other sort</span>
                     </button>
@@ -63,9 +112,10 @@
             <!-- Room Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-3/4">
                 <!-- Room Card -->
+                @foreach($rooms as $room)
                 <div class="bg-white p-4 rounded shadow">
                     <div class="relative">
-                        <img alt="Room Image" class="w-full h-40 object-cover rounded" height="200" src="https://storage.googleapis.com/a1aa/image/ZYUK2NQ1MLzIWHUz1PVb2imkfYczTGLBQRI2Eg_DK4o.jpg" width="300"/>
+                        <img alt="Room Image" class="w-full h-40 object-cover rounded" height="200" src="{{asset('storage/rooms/$room->image')}}" width="300"/>
                         <div class="absolute top-2 right-2 flex">
                             <i class="fas fa-star text-yellow-400"></i>
                             <i class="fas fa-star text-yellow-400"></i>
@@ -75,17 +125,20 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-lg font-bold">Large Room with Attached Bathroom</h3>
-                        <p class="text-gray-500">Deluxe Room</p>
+                        <h3 class="text-lg font-bold">{{$room->name}}</h3>
+                        <p class="text-gray-500">{{$room->type_name}}</p>
                         <div class="flex items-center mt-2">
-                            <span class="text-teal-500 text-xl font-bold">$200</span>
+                            <span class="text-teal-500 text-xl font-bold">{{$room->discount_price}}</span>
                             <span class="text-teal-500 text-xl ml-2">/ Night</span>
-                            <span class="text-red-500 text-xl line-through ml-4">$200</span>
+                            @if(!empty($room->discount))
+                            <span class="text-red-500 text-xl line-through ml-4">{{$room->price}}</span>
                             <span class="text-red-500 text-xl ml-2">/ Night</span>
+                            @endif
                         </div>
                         <button class="mt-4 bg-teal-500 text-white py-2 px-4 rounded">BOOK</button>
                     </div>
                 </div>
+                @endforeach
             </div>
             <!-- Booking Information -->
             <div class="w-1/4 ml-4">
