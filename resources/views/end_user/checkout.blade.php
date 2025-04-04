@@ -18,48 +18,57 @@
     </style>
 </head>
 <body>
+<form action="{{ route('booking.show') }}" method="POST">
+@csrf
 <div class="container mt-4">
     <div class="row">
         <!-- Thông tin khách hàng -->
         <div class="col-md-8">
-    <div class="card p-3">
-        <h5>Customer Information</h5>
-        <form>
-            <div class="mb-3">
-                <label class="form-label">Name *</label>
-                <!-- Hiển thị tên người dùng đã đăng nhập -->
-                <input type="text" class="form-control" value="{{ $user->name }}" readonly>
+            <div class="card p-3">
+                <h5>Customer Information</h5>
+                <div class="mb-3">
+                    <label class="form-label">Name *</label>
+                    <input type="text" class="form-control" name="name" value="{{ $user->name }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email *</label>
+                    <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone *</label>
+                    <input type="text" class="form-control" name="phone" value="{{ $user->phone }}">
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Email *</label>
-                <!-- Hiển thị email người dùng -->
-                <input type="email" class="form-control" value="{{ $user->email }}" readonly>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Phone *</label>
-                <!-- Hiển thị số điện thoại người dùng -->
-                <input type="text" class="form-control" value="{{ $user->phone }}" readonly>
-            </div>
-        </form>
-    </div>
-</div>
-
+        </div>
 
         <!-- Thông tin đặt phòng -->
         <div class="col-md-4">
             <div class="card p-3">
                 <h5>Booked Rooms: <strong>{{ $rooms->count() }} rooms</strong></h5>
-                <p>22/03/2025 - 25/03/2025 (3 nights)</p>
 
-                @foreach($rooms as $room)
+                @if ($checkinDate && $checkoutDate)
+                    <p>{{ $checkinDate }} - {{ $checkoutDate }} ({{ $nights }} nights)</p>
+                @endif
+
+                <input type="hidden" name="checkin_date" value="{{ $checkinDate }}">
+                <input type="hidden" name="checkout_date" value="{{ $checkoutDate }}">
+                <input type="hidden" name="nights" value="{{ $nights }}">
+                <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+
+                @foreach ($rooms as $room)
                     <p><strong>{{ $room->name }}</strong> - <span class="text-primary">${{ $room->price }}</span></p>
+                    <input type="hidden" name="rooms[]" value="{{ $room->name }} - ${{ $room->price }}">
                 @endforeach
 
                 <hr>
                 <p><strong>Total: ${{ $totalPrice }}</strong></p>
+
+                <!-- Nút Book Now -->
+                <div class="d-grid mt-2">
+                    <button class="btn btn-primary" type="submit">Book Now</button>
+                </div>
             </div>
         </div>
-
     </div>
 
     <!-- Tabs -->
@@ -79,19 +88,19 @@
             <div class="card p-3">
                 <h5>Select Payment Method</h5>
                 <div class="form-check">
-                    <input type="radio" name="payment" id="option1" class="form-check-input" value="1">
+                    <input type="radio" name="payment" id="option1" class="form-check-input" value="1" required>
                     <label class="form-check-label" for="option1"><strong>Pay later</strong></label>
                     <p>Pay the total and you are all set</p>
                 </div>
                 <div class="form-check">
                     <input type="radio" name="payment" id="option2" class="form-check-input" value="2">
                     <label class="form-check-label" for="option2"><strong>Pay in part now</strong></label>
-                    <p>Pay $207.43 now, and the rest ($207.43) will be auto-charged later. No extra fees.</p>
+                    <p>Pay $207.43 now, and the rest ($207.43) will be auto-charged later.</p>
                 </div>
                 <div class="form-check">
                     <input type="radio" name="payment" id="option3" class="form-check-input" value="3">
                     <label class="form-check-label" for="option3"><strong>Pay in full now</strong></label>
-                    <p>Pay $207.43 now, and the rest ($207.43) will be auto-charged later. No extra fees.</p>
+                    <p>Pay $207.43 now, and the rest ($207.43) will be auto-charged later.</p>
                 </div>
             </div>
         </div>
@@ -100,13 +109,22 @@
         <div class="tab-pane fade" id="payment-gateway">
             <div class="card p-3">
                 <h5>Payment Gateway</h5>
-                <p><strong>VNPAY Payment Method</strong></p>
-                <p>Payment will be processed through VNPAY. Please proceed to the next steps to complete the payment.</p>
+                @foreach ($payment_gateways as $gateway)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment_gateway" id="gateway{{ $gateway->id }}" value="{{ $gateway->id }}" required>
+                        <label class="form-check-label" for="gateway{{ $gateway->id }}">
+                            <strong>{{ $gateway->name }}</strong><br>
+                            {{ $gateway->description }}
+                        </label>
+                    </div>
+                @endforeach
+
                 <button class="btn btn-secondary" id="backToMethod" type="button">Back to Payment Method</button>
             </div>
         </div>
     </div>
 </div>
+</form>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

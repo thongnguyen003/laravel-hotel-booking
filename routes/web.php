@@ -1,12 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Fake_user;
+use App\Http\Controllers\ForgetPasswordManager;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\BookingController;
 
 // Trang chủ trang web
-Route::get('/', [Fake_user::class, 'index']);
+
+// thử lại 
+Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
+->name('forgetPassword');
+Route::post('/forget-password', [ForgetPasswordManager::class, 'ForgetPasswordPost'])
+->name('forgetPasswordPost');
+Route::get('/reset-password/{token}', [ForgetPasswordManager::class,'resetPassword'])
+->name("reset-password");
+Route::post('/reset-password', [ForgetPasswordManager::class,'resetPasswordPost'])
+->name("reset-passwordPost");
+// Route::get('/', [Fake_user::class, 'index']);
 
 // Trang đăng ký người dùng
 Route::get('/register', [Fake_user::class, 'register'])->name('register');
@@ -33,7 +45,9 @@ Route::prefix('profile')->group(function () {
     // Trang danh sách phòng đã đặt
     Route::get('/booked_room', [Fake_user::class, 'booked_room'])->name('history');
 });
-
+Route::get('/about', function () {
+    return view('userPage.about');
+})->name('about');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -46,3 +60,4 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/process-payment', [CheckoutController::class, 'processPayment'])->name('process.payment');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/payment', [CheckoutController::class, 'processPayment']);
+Route::post('/booking', [BookingController::class, 'show'])->name('booking.show');
