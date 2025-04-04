@@ -6,6 +6,7 @@ use App\Models\Room; // Đảm bảo bạn đã tạo model Room
 use Illuminate\Http\Request;
 use App\Models\Slide; // Đảm bảo bạn đã tạo model Room
 use App\Models\Marking;
+use App\Models\Comment;
 
 
 class RoomController extends Controller
@@ -58,6 +59,21 @@ class RoomController extends Controller
         return view('room.detail', compact('room', 'reviews', 'relatedRooms', 'slides'));
     }
     
+    public function addComment(Request $request, $id)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'content' => 'required|string|max:1000',
+        ]);
+
+        Reviews::create([
+            'room_id' => $id,
+            'user_id' => $request->user_id,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('rooms.detail', $id)->with('success', 'Comment added successfully.');
+    }
 
     // Hiển thị form chỉnh sửa sản phẩm
     public function edit($id)

@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ReviewController;
 // =======
 // use App\Http\Controllers\ForgetPasswordManager;
 // use App\Http\Controllers\AuthController;
@@ -14,6 +15,7 @@ Route::resource('rooms', RoomController::class);
 // Route::get('rooms/detail', [RoomController::class, 'show'])->name('rooms.detail');
 Route::get('/rooms/{id}', [RoomController::class, 'show'])->name('rooms.detail');
 Route::post('/rooms/{id}/mark', [RoomController::class, 'mark'])->name('rooms.mark');
+Route::post('/rooms/{id}/reviews', [ReviewController::class, 'addReview'])->name('rooms.reviews.add');
 
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
