@@ -91,6 +91,7 @@
                 </select> -->
                 <div class="relative flex-1">
                     <button class="p-2 border rounded flex items-center justify-center w-full" onclick="toggleSortOptions('sort')">
+
                         <i class="fas fa-bars mr-2"></i>
                         <span>Other sort</span>
                     </button>

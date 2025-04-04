@@ -11,6 +11,7 @@ class Invoice extends Model
 {
     protected $table = "invoices";
     //
+
     public function user() 
     { 
         return $this->belongsTo(User::class,'user_id');
@@ -18,5 +19,6 @@ class Invoice extends Model
     public function booking() 
     {
         return $this->hasMany(Booking::class,'invoice_id');
+
     }
 }
