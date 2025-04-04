@@ -16,7 +16,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            background: #3FB4CB;
             color: white;
             padding: 15px;
             text-align: center;
@@ -45,7 +45,7 @@
 
         .highlight {
             font-weight: bold;
-            color: #ff7e5f;
+            color: #3FB4CB;
         }
     </style>
 </head>

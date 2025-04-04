@@ -5,7 +5,7 @@ use App\Http\Controllers\Fake_user;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\CheckoutController;
 // thử lại 
 Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
     ->name('forgetPassword');
@@ -17,7 +17,9 @@ Route::post('/reset-password', [ForgetPasswordManager::class, 'resetPasswordPost
     ->name("reset-passwordPost");
 
 // Trang chủ trang web
+
 // Route::get('/', [Fake_user::class, 'index']);
+
 // Trang đăng ký người dùng
 Route::get('/register', [Fake_user::class, 'register'])->name('register');
 
@@ -26,6 +28,7 @@ Route::get('/login', [Fake_user::class, 'login'])->name('log-in');
 
 // Nhóm các route có tiền tố là là profile và cần đăng nhập mới truy cập được
 Route::prefix('profile')->group(function () {
+  
     // Trang hồ sơ các nhân
     Route::get('/', [Fake_user::class, 'profile'])->name('profile');
 
@@ -55,3 +58,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/process-payment', [CheckoutController::class, 'processPayment'])->name('process.payment');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/payment', [CheckoutController::class, 'processPayment']);
