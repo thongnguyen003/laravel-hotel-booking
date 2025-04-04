@@ -43,10 +43,6 @@
     <!-- Main Content -->
     <main class="p-4">
         <div class="flex justify-between items-center mb-4">
-            <div class="flex space-x-4 w-3/4 bg-white p-4 rounded shadow">
-                <!-- <select class="p-2 border rounded flex-1">
-                    <option>Type Room</option>
-                </select> -->
             <form class="flex space-x-4 w-3/4 bg-white p-4 rounded shadow" action="/search" method="POST">
                 @csrf
                 <!-- các input -->
