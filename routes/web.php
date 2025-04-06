@@ -8,6 +8,12 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\HTTP\Controllers\FakeProductController;
+use  App\Http\Controllers\ComponentController;
+
+// Trang chủ trang web
+Route::get('/header',[ComponentController::class, 'getHeader']);
+Route::get('/footer',[ComponentController::class, 'getFooter']);
+Route::get('/home',[ComponentController::class, 'getHomePage']);
 
  Route::get('/forget-password', [ForgetPasswordManager::class, 'ForgetPassword'])
  ->name('forgetPassword');
@@ -19,7 +25,7 @@ use App\HTTP\Controllers\FakeProductController;
  ->name("reset-passwordPost");
 
 // Trang chủ trang web
-Route::get('/', [Fake_user::class, 'index']);
+// Route::get('/', [Fake_user::class, 'index']);
 
 // Trang đăng ký người dùng
 Route::get('/register', [Fake_user::class, 'register'])->name('register');
