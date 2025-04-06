@@ -9,7 +9,6 @@
       margin: 0;
       font-family: Arial, sans-serif;
     }
-
     .navbar {
       background-color: #34a9c1;
       display: flex;
@@ -45,11 +44,9 @@
   </style>
 </head>
 <body>
-
   <header class="navbar">
     <div class="logo">
-      <!-- Thay 'logo.png' bằng đường dẫn hình ảnh logo của bạn -->
-      <img src="logo.png" alt="Quintessence Hotel Logo">
+      <img src="/images/logo.png" alt="Quintessence Hotel Logo">
     </div>
     <nav class="menu">
       <a href="#">Home</a>
